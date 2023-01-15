@@ -11,8 +11,6 @@ class CourseServices {
     }
   }
   // Obtener todos los cursos junto a sus categorías y sus videos (de las categorías solo deberás mostrar el nombre, de los videos solo deberás mostrar el nombre y su url
-  static async
-
 }
 
 module.exports = CourseServices;
