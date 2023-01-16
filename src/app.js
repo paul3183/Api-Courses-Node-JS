@@ -4,6 +4,7 @@ const db = require('./utils/database');
 
 const userRoutes = require('./Routes/users.routes');
 const courseRoutes = require('./Routes/courses.routes');
+const videosRoutes = require('./Routes/videos.routes');
 
 const initModels = require('./models/initModels');
 
@@ -17,6 +18,7 @@ db.authenticate().then(() => console.log('autenticado')).catch((error) => consol
 app.use(express.json());
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', courseRoutes);
+app.use('/api/v1', videosRoutes);
 
 initModels();
 db.sync({ force: false })
