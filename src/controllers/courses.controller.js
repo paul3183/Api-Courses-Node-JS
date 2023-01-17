@@ -51,6 +51,16 @@ const getCoursesAllRelations = async (req, res) => {
   }
 }
 
+const getRelationsAllCoursesId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await CourseServices.getRelationsAllCoursesId(id);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports =
 {
   getAllCourses,
@@ -58,4 +68,5 @@ module.exports =
   createNewCourse,
   updateCourse,
   getCoursesAllRelations,
+  getRelationsAllCoursesId,
 };

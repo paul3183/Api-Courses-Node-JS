@@ -1,6 +1,7 @@
 const Categories = require('../models/categories.models');
 const Courses = require('../models/courses.models');
 const UserCourses = require('../models/userCourses.models');
+const Users = require('../models/users.models');
 const Videos = require('../models/videos.models');
 
 class CourseServices {
@@ -45,7 +46,7 @@ class CourseServices {
   }
 
   //(g) Obtener todos los cursos junto a sus categorías y sus videos (de las categorías solo deberás mostrar el nombre, de los videos solo deberás mostrar el nombre y su url:
-  static async getCoursesAllRelations() {
+  static async getCoursesAllRelations(id) {
     try {
       const result = await Courses.findOne({
         where: { id },
@@ -65,25 +66,38 @@ class CourseServices {
       throw error;
     }
   }
+  //Reto opcional:
+  //opcional: Reto opcional!: Crea un join que traiga como tabla primaria los cursos y todas sus relaciones
+  static async getRelationsAllCoursesId(id) {
+    try {
+      const result = await Courses.findOne({
+        where: { id },
+        include: [
+          {
+            model: Categories,
+            as: 'categories'
+          },
+          {
+            model: Videos,
+            as: 'videos'
+          },
+          {
+            model: UserCourses,
+            as: 'courses1',
+            include:
+            {
+              model: Users,
+              as: 'users'
+            }
+          }
+        ]
+      });
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  // static async getUserWithCourses(id) {
-  //   try {
-  //     const result = await Users.findOne({
-  //       where: { id },
-  //       include: {
-  //         model: UserCourses,
-  //         as: "usersCourses",
-  //         include: {
-  //           model: Courses,
-  //           as: 'usersCourses'
-  //         }
-  //       }
-  //     })
-  //     return result;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 }
 
 module.exports = CourseServices;
