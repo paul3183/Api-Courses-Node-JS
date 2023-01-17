@@ -41,10 +41,21 @@ const updateCourse = async (req, res) => {
   }
 }
 
+const getCoursesAllRelations = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await CourseServices.getCoursesAllRelations(id);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports =
 {
   getAllCourses,
   createCourseUser,
   createNewCourse,
   updateCourse,
+  getCoursesAllRelations,
 };

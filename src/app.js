@@ -5,9 +5,9 @@ const db = require('./utils/database');
 const userRoutes = require('./Routes/users.routes');
 const courseRoutes = require('./Routes/courses.routes');
 const videosRoutes = require('./Routes/videos.routes');
+const categoriesRoutes = require('./Routes/categories.routes');
 
 const initModels = require('./models/initModels');
-
 
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(express.json());
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', courseRoutes);
 app.use('/api/v1', videosRoutes);
+app.use('/api/v1', categoriesRoutes);
 
 initModels();
 db.sync({ force: false })

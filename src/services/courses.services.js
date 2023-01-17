@@ -1,5 +1,7 @@
+const Categories = require('../models/categories.models');
 const Courses = require('../models/courses.models');
 const UserCourses = require('../models/userCourses.models');
+const Videos = require('../models/videos.models');
 
 class CourseServices {
   //(f):::Obtener todos los cursos;
@@ -41,6 +43,47 @@ class CourseServices {
       throw error;
     }
   }
+
+  //(g) Obtener todos los cursos junto a sus categorías y sus videos (de las categorías solo deberás mostrar el nombre, de los videos solo deberás mostrar el nombre y su url:
+  static async getCoursesAllRelations() {
+    try {
+      const result = await Courses.findOne({
+        where: { id },
+        include: [
+          {
+            model: Categories,
+            as: 'categories',
+          },
+          {
+            model: Videos,
+            as: 'videos',
+          }
+        ]
+      })
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // static async getUserWithCourses(id) {
+  //   try {
+  //     const result = await Users.findOne({
+  //       where: { id },
+  //       include: {
+  //         model: UserCourses,
+  //         as: "usersCourses",
+  //         include: {
+  //           model: Courses,
+  //           as: 'usersCourses'
+  //         }
+  //       }
+  //     })
+  //     return result;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
 module.exports = CourseServices;

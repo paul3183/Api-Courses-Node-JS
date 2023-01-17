@@ -1,5 +1,14 @@
 const VideoServices = require('../services/videos.services')
 
+const getAllVideos = async (req, res) => {
+  try {
+    const result = await VideoServices.getAllVideos();
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 const createVideo = async (req, res) => {
   try {
     const newVideo = req.body;
@@ -22,5 +31,6 @@ const deleteVideoId = async (req, res) => {
 
 module.exports = {
   createVideo,
-  deleteVideoId
+  deleteVideoId,
+  getAllVideos
 }
